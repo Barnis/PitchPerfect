@@ -32,16 +32,22 @@ class PlaySoundsViewController: UIViewController {
     @IBAction func playSoundForButton(_ sender: UIButton){
         switch(ButtonType(rawValue: sender.tag)!){
         case .slow:
+            print(sender.tag)
             playSound(rate: 0.5)
         case .fast:
+            print(sender.tag)
             playSound(rate: 1.5)
         case .chipmunk:
-            playSound(rate: 1000)
+            print(sender.tag)
+            playSound(pitch: 1000)
         case .vadder:
-            playSound(rate: -1000)
+            print(sender.tag)
+            playSound(pitch: -1000)
         case .echo:
+            print(sender.tag)
             playSound(echo: true)
         case .reverb:
+            print(sender.tag)
             playSound(reverb: true)
         }
         configureUI(.playing)

@@ -29,11 +29,10 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     }
 
     @IBAction func recordAudio(_ sender: Any) {
+        configureUi(isRecording: true)
         //recordingLabel.text = "Recording in Progress"
         //stopRecordingButton.isEnabled = true
         //recordButton.isEnabled = false
-        configureUi(isRecording: true)
-        
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let recordingName = "recordedVoice.wav"
         let pathArray = [dirPath, recordingName]
@@ -50,10 +49,10 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         audioRecorder.record()
     }
     @IBAction func stopRecording(_ sender: Any) {
-       // recordButton.isEnabled = true
-       // stopRecordingButton.isEnabled = false
-       // recordingLabel.text = "Tap to Record"
-        configureUi(isRecording: false)
+        recordButton.isEnabled = true
+        stopRecordingButton.isEnabled = false
+        recordingLabel.text = "Tap to Record"
+        //configureUi(isRecording: false)
         audioRecorder.stop()
         let audioSession = AVAudioSession.sharedInstance()
         try! audioSession.setActive(false)
@@ -76,14 +75,18 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     func configureUi(isRecording : Bool){
+        
         if(isRecording){
+            print("true")
             recordingLabel.text = "Recording in Progress"
-            stopRecordingButton.isEnabled = true
+            stopRecordingButton.isEnabled = isRecording
             recordButton.isEnabled = false
+        }else{
+        print("false")
+            recordButton.isEnabled = true
+            //stopRecordingButton.isEnabled = false
+            recordingLabel.text = "Tap to Record"
         }
-        recordButton.isEnabled = true
-        stopRecordingButton.isEnabled = false
-        recordingLabel.text = "Tap to Record"
     }
     
 }
